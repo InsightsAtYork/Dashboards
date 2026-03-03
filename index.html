@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="utf-8" />
-    <title>Power BI Dashboards</title>
+    <title>Diocesan Dashboards – Parish Overview</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
     <style>
+        /* Basic page reset and typography */
         html, body {
             margin: 0;
             padding: 0;
@@ -12,36 +14,87 @@
             font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
             background: #f5f5f5;
         }
+
+        /* Simple header bar – you can tweak colours to match diocesan branding */
         header {
             padding: 0.75rem 1rem;
-            background: #00246b; /* tweak to Diocesan colours later */
-            color: white;
-            font-size: 1.1rem;
+            background: #003366;       /* change this to Diocesan colours later if you like */
+            color: #ffffff;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
         }
+
+        header .title {
+            font-weight: 600;
+        }
+
+        header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        main {
+            height: calc(100vh - 56px); /* full height minus header */
+        }
+
         .report-container {
-            height: calc(100vh - 48px); /* full height minus header */
-        }
-        .report-container iframe {
             width: 100%;
             height: 100%;
-            border: none;
+            background: #ffffff;
         }
-        .fallback {
-            padding: 1rem;
-            text-align: center;
+
+        /* Make the iframe fill the available space responsively */
+        .report-container iframe {
+            border: none;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Small message area if you want to give users help text */
+        .help-text {
+            padding: 0.5rem 1rem;
+            font-size: 0.85rem;
             color: #444;
+            background: #eef2f7;
+            border-bottom: 1px solid #d0d7e2;
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            header .subtitle {
+                margin-top: 0.25rem;
+            }
         }
     </style>
 </head>
 <body>
     <header>
-        Diocesan Dashboards (Temporary Host)
+        <div class="title">Diocesan Dashboards</div>
+        <div class="subtitle">Parish Overview (Secure – sign in required)</div>
     </header>
-    <div class="report-container">
-        <!-- TODO: paste the Power BI embed iframe below -->
-        <div class="fallback">
-            Power BI report loading… If you can’t see it, make sure you’re signed in with your diocesan Microsoft account.
-        </div>
+
+    <div class="help-text">
+        You may be asked to sign in with your diocesan Microsoft account. If you see a message saying
+        you don’t have access, please contact the diocesan office so your account can be granted
+        permission to the “Parish Overview” Power BI report.
     </div>
+
+    <main>
+        <div class="report-container">
+            <!-- Secure Power BI embed iframe (User Owns Data). Power BI handles sign-in & permissions. -->
+            <iframe
+                title="Parish Overview v2.0"
+                src="https://app.powerbi.com/reportEmbed?reportId=0ba6e44a-3057-4ec0-9cd5-24fe69630775&autoAuth=true&ctid=31baa460-1811-4523-89db-257a666586e6"
+                frameborder="0"
+                allowfullscreen="true">
+            </iframe>
+        </div>
+    </main>
 </body>
 </html>
