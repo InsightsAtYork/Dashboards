@@ -6,86 +6,142 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <style>
-        /* Reset + setup */
-        html, body {
-            margin: 0;
-            padding: 0;
-            height: 100%;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #f5f5f5;
+        :root {
+            /* Primary palette */
+            --red: #b31f29;
+            --yellow: #f8ce3b;
+            --navy: #0d3b66;
+            --lilac: #9768a9;
+
+            /* Secondary palette */
+            --light-blue: #5197d5;
+            --green: #98a642;
+            --cream: #faf0c9;
+            --gold: #bd8240;
+
+            /* Utility */
+            --bg-light: #f5f7fa;
+            --text-dark: #222;
         }
 
-        /* Header bar */
+        body {
+            margin: 0;
+            background: var(--bg-light);
+            font-family: Georgia, serif;
+            color: var(--text-dark);
+        }
+
+        /* Hero header */
         header {
-            padding: 0.75rem 1rem;
-            background: #003366; /* tweak to diocesan brand if you like */
-            color: #ffffff;
-            font-size: 1.05rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+            background: linear-gradient(135deg, var(--navy) 0%, var(--red) 100%);
+            color: white;
+            padding: 2.2rem 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Shield watermark (single colour, faded) */
+        header::after {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 260px;
+            height: 260px;
+            background: url('https://www.yorkdiocese.org/images/logos/single-colour-shield-blue.png')
+                        no-repeat center/contain;
+            opacity: 0.08;
         }
 
         header .title {
-            font-weight: 600;
+            font-size: 2rem;
+            font-weight: bold;
+            letter-spacing: 0.4px;
         }
 
         header .subtitle {
-            font-size: 0.9rem;
-            opacity: 0.9;
+            font-size: 1.05rem;
+            margin-top: 0.4rem;
+            opacity: 0.95;
+        }
+
+        /* Brand accent bar */
+        .accent-bar {
+            height: 6px;
+            background: var(--yellow);
+            width: 100%;
         }
 
         /* Help message */
         .help-text {
-            padding: 0.5rem 1rem;
-            font-size: 0.85rem;
-            color: #444;
-            background: #eef2f7;
-            border-bottom: 1px solid #d0d7e2;
+            padding: 1rem 1.5rem;
+            background: var(--cream);
+            border-left: 6px solid var(--gold);
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            line-height: 1.45;
         }
 
-        /* Report container */
+        /* Pattern background wrapper */
+        .report-wrapper {
+            background: repeating-linear-gradient(
+                45deg,
+                rgba(13,59,102,0.04),
+                rgba(13,59,102,0.04) 20px,
+                rgba(248,206,59,0.05) 20px,
+                rgba(248,206,59,0.05) 40px
+            );
+            padding: 1.2rem;
+        }
+
+        /* Main card */
         .report-container {
-            width: 100%;
-            height: 88vh; /* ≈ full laptop height while keeping tabs visible */
             background: #ffffff;
+            border-radius: 12px;
+            padding: 0.5rem;
+            height: 80vh;
+            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
         }
 
-        .report-container iframe {
+        iframe {
+            width: 100%;
+            height: 100%;
             border: none;
-            width: 100%;   /* override the fixed 600px width from Power BI */
-            height: 100%;  /* override the fixed 373.5px height */
+            border-radius: 8px;
         }
 
-        @media (max-width: 600px) {
+        @media (max-width: 700px) {
             header {
-                flex-direction: column;
-                align-items: flex-start;
+                padding: 1.5rem 1rem;
             }
-            header .subtitle {
-                margin-top: 0.25rem;
+            header .title {
+                font-size: 1.6rem;
             }
         }
     </style>
 </head>
 
 <body>
-    <header>
-        <div class="title">Diocesan Dashboards</div>
-        <div class="subtitle">Parish Overview (Public – No Login Required)</div>
-    </header>
 
-    <div class="help-text">
-        This dashboard is publicly viewable via Power BI "Publish to web". Data is read-only and no sign-in is required.
-    </div>
+<header>
+    <div class="title">Diocesan Dashboards</div>
+    <div class="subtitle">Parish Overview — Public Access (No Sign‑In Required)</div>
+</header>
 
+<div class="accent-bar"></div>
+
+<div class="help-text">
+    This dashboard is publicly available using Power BI “Publish to web”. It is read‑only and safe to share widely.
+</div>
+
+<div class="report-wrapper">
     <div class="report-container">
-        <!-- Public "Publish to web" iframe from Power BI -->
-        <iframe title="Parish Overview v2.0" width="600" height="373.5"
-                src="https://app.powerbi.com/view?r=eyJrIjoiZDIyNWNiMTktY2IyOS00ZmRiLWJlMzYtMjc2MzdkYjlhNWRkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9&embedImagePlaceholder=true&pageName=54144918aabd69f38383"
-                frameborder="0" allowFullScreen="true"></iframe>
+        <iframe title="Parish Overview v2.0"
+            src="https://app.powerbi.com/view?r=eyJrIjoiZDIyNWNiMTktY2IyOS00ZmRiLWJlMzYtMjc2MzdkYjlhNWRkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9&embedImagePlaceholder=true&pageName=54144918aabd69f38383"
+            allowfullscreen="true">
+        </iframe>
     </div>
+</div>
+
 </body>
 </html>
-``
