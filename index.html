@@ -7,141 +7,148 @@
 
     <style>
         :root {
-            /* Primary palette */
             --red: #b31f29;
             --yellow: #f8ce3b;
             --navy: #0d3b66;
-            --lilac: #9768a9;
 
-            /* Secondary palette */
-            --light-blue: #5197d5;
-            --green: #98a642;
             --cream: #faf0c9;
             --gold: #bd8240;
 
-            /* Utility */
-            --bg-light: #f5f7fa;
+            --bg-1: #f7f8fa;
+            --bg-2: #eef1f5;
             --text-dark: #222;
+            --glass-bg: rgba(255,255,255,0.6);
+            --glass-border: rgba(255,255,255,0.45);
         }
 
         body {
             margin: 0;
-            background: var(--bg-light);
+            background: linear-gradient(145deg, var(--bg-1), var(--bg-2));
             font-family: Georgia, serif;
             color: var(--text-dark);
+            overflow-x: hidden;
         }
 
-        /* Hero header */
-        header {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--red) 100%);
+        /* HERO SECTION */
+        .hero {
+            padding: 4rem 1.5rem 3rem;
+            text-align: center;
+            background: linear-gradient(
+                135deg,
+                var(--navy) 0%,
+                var(--red) 100%
+            );
             color: white;
-            padding: 2.2rem 1.5rem;
             position: relative;
             overflow: hidden;
         }
 
-        /* Shield watermark (single colour, faded) */
-        header::after {
+        /* Floating soft circles (trainertrails-style ambience) */
+        .hero::before,
+        .hero::after {
             content: "";
             position: absolute;
-            top: -40px;
-            right: -40px;
-            width: 260px;
-            height: 260px;
-            background: url('https://www.yorkdiocese.org/images/logos/single-colour-shield-blue.png')
-                        no-repeat center/contain;
-            opacity: 0.08;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.35;
+            animation: float 12s ease-in-out infinite alternate;
         }
-
-        header .title {
-            font-size: 2rem;
-            font-weight: bold;
-            letter-spacing: 0.4px;
-        }
-
-        header .subtitle {
-            font-size: 1.05rem;
-            margin-top: 0.4rem;
-            opacity: 0.95;
-        }
-
-        /* Brand accent bar */
-        .accent-bar {
-            height: 6px;
+        .hero::before {
+            width: 300px;
+            height: 300px;
             background: var(--yellow);
-            width: 100%;
+            top: -60px;
+            left: -20px;
+        }
+        .hero::after {
+            width: 280px;
+            height: 280px;
+            background: var(--red);
+            bottom: -40px;
+            right: -20px;
+            animation-delay: 2s;
         }
 
-        /* Help message */
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-35px); }
+        }
+
+        .hero-title {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 0.8rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* MAIN SECTION */
+        .container {
+            max-width: 1100px;
+            margin: 2rem auto;
+            padding: 1rem;
+        }
+
+        /* Modern glass-style card */
+        .glass-card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-radius: 18px;
+            padding: 1.2rem;
+            box-shadow: 0 10px 35px rgba(0,0,0,0.12);
+        }
+
         .help-text {
-            padding: 1rem 1.5rem;
+            font-size: 1rem;
             background: var(--cream);
             border-left: 6px solid var(--gold);
-            font-size: 1rem;
-            margin-bottom: 1rem;
-            line-height: 1.45;
-        }
-
-        /* Pattern background wrapper */
-        .report-wrapper {
-            background: repeating-linear-gradient(
-                45deg,
-                rgba(13,59,102,0.04),
-                rgba(13,59,102,0.04) 20px,
-                rgba(248,206,59,0.05) 20px,
-                rgba(248,206,59,0.05) 40px
-            );
-            padding: 1.2rem;
-        }
-
-        /* Main card */
-        .report-container {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 0.5rem;
-            height: 80vh;
-            box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+            padding: 1rem;
+            border-radius: 10px;
+            margin-bottom: 1.4rem;
         }
 
         iframe {
             width: 100%;
-            height: 100%;
+            height: 75vh;
             border: none;
-            border-radius: 8px;
+            border-radius: 12px;
         }
 
-        @media (max-width: 700px) {
-            header {
-                padding: 1.5rem 1rem;
-            }
-            header .title {
-                font-size: 1.6rem;
-            }
+        @media(max-width: 700px) {
+            .hero-title { font-size: 2.2rem; }
+            iframe { height: 65vh; }
         }
     </style>
 </head>
 
 <body>
 
-<header>
-    <div class="title">Diocesan Dashboards</div>
-    <div class="subtitle">Parish Overview — Public Access (No Sign‑In Required)</div>
-</header>
+    <section class="hero">
+        <div class="hero-title">Diocesan Dashboards</div>
+        <div class="hero-subtitle">Parish Overview • Public Access</div>
+    </section>
 
-<div class="accent-bar"></div>
+    <div class="container">
 
-<div class="help-text">
-    This dashboard is publicly available using Power BI “Publish to web”. It is read‑only and safe to share widely.
-</div>
+        <div class="help-text">
+            This dashboard is publicly available using Power BI “Publish to web”. It is
+            read‑only and safe to share widely.
+        </div>
 
-<div class="report-wrapper">
-    <div class="report-container">
-        <iframe title="Parish Overview v2.0"
-            src="https://app.powerbi.com/view?r=eyJrIjoiZDIyNWNiMTktY2IyOS00ZmRiLWJlMzYtMjc2MzdkYjlhNWRkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9&embedImagePlaceholder=true&pageName=54144918aabd69f38383"
-            allowfullscreen="true">
-        </iframe>
+        <div class="glass-card">
+            https://app.powerbi.com/view?r=eyJrIjoiZDIyNWNiMTktY2IyOS00ZmRiLWJlMzYtMjc2MzdkYjlhNWRkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9&embedImagePlaceholder=true&pageName=54144918aabd69f38383
+            </iframe>
+        </div>
+
     </div>
-</div>
 
 </body>
 </html>
