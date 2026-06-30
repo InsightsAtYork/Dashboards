@@ -8,130 +8,135 @@
 <!-- Swanky & Moo Moo font -->
 <link href="https://fonts.googleapis.com/css2?family=Swanky+and+Moo+Moo&display=swap" rel="stylesheet">
 
-
 <style>
-    :root {
-        --red: #b31f29;
-        --yellow: #f8ce3b;
-        --navy: #0d3b66;
-        --lilac: #9768a9;
-        --bg1: #ffffff;
-        --glass: rgba(255,255,255,0.45);
-        --glass-border: rgba(255,255,255,0.25);
-    }
+:root {
+    --red: #b31f29;
+    --yellow: #f8ce3b;
+    --navy: #0d3b66;
+    --bg1: #ffffff;
+    --glass: rgba(255,255,255,0.45);
+    --glass-border: rgba(255,255,255,0.25);
+}
 
-    body {
-        margin: 0;
-        font-family: Georgia, serif;
-        background: var(--bg1);
-        color: #222;
-        overflow-x: hidden;
-    }
+body {
+    margin: 0;
+    font-family: Georgia, serif;
+    background: var(--bg1);
+    color: #222;
+}
 
-    .waves {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%;
-        height: 100vh;
-        z-index: -2;
-        overflow: hidden;
-    }
+/* WAVES */
+.waves {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -2;
+    overflow: hidden;
+}
 
-    .wave {
-        position: absolute;
-        width: 200%;
-        height: 45%;
-        left: -50%;
-        opacity: 0.35;
-        border-radius: 45%;
-        animation: drift 18s infinite ease-in-out alternate;
-    }
+.wave {
+    position: absolute;
+    width: 200%;
+    height: 45%;
+    left: -50%;
+    opacity: 0.35;
+    border-radius: 45%;
+    animation: drift 18s infinite ease-in-out alternate;
+}
 
-    .wave:nth-child(1) { top: -10%; background: var(--navy); animation-duration: 19s; }
-    .wave:nth-child(2) { top: 20%; background: var(--red); animation-duration: 16s; animation-delay: 3s; }
-    .wave:nth-child(3) { top: 50%; background: var(--yellow); animation-duration: 22s; animation-delay: 1s; opacity: 0.25; }
+.wave:nth-child(1) { top: -10%; background: var(--navy); }
+.wave:nth-child(2) { top: 20%; background: var(--red); }
+.wave:nth-child(3) { top: 50%; background: var(--yellow); opacity: 0.25; }
 
-    @keyframes drift {
-        from { transform: translateX(0) rotate(0deg); }
-        to   { transform: translateX(25%) rotate(8deg); }
-    }
+@keyframes drift {
+    from { transform: translateX(0); }
+    to { transform: translateX(25%) rotate(6deg); }
+}
 
-    header {
-        text-align: center;
-        padding: 3rem 1rem 2rem;
-        color: white;
-        background: linear-gradient(135deg, var(--navy), var(--red));
-    }
+/* HEADER */
+header {
+    text-align: center;
+    padding: 3rem 1rem 2rem;
+    color: white;
+    background: linear-gradient(135deg, var(--navy), var(--red));
+}
 
-    header h1 { font-size: 2.6rem; margin: 0; }
-    header p { font-size: 1.2rem; margin: 0.4rem 0 0; }
+header h1 { margin: 0; font-size: 2.4rem; }
+header p { margin: 0.5rem 0 0; }
 
-    .content {
-        padding: 2rem 1rem 4rem;
-        position: relative;
-        z-index: 2;
-    }
+/* LAYOUT */
+.content {
+    padding: 2rem 1rem 4rem;
+}
 
+.layout {
+    width: 95%;
+    margin: auto;
+    display: flex;
+    gap: 1.5rem;
+}
+
+/* DASHBOARD */
+.dashboard-frame {
+    flex: 0 0 70%;
+    background: var(--glass);
+    border: 1px solid var(--glass-border);
+    backdrop-filter: blur(12px);
+    border-radius: 14px;
+    padding: 1rem;
+    min-width: 0;
+}
+
+iframe {
+    width: 100%;
+    height: 80vh;
+    border: none;
+    border-radius: 12px;
+}
+
+/* VERSION NOTES */
+.version-notes {
+    flex: 0 0 30%;
+    background: rgba(13,59,102,0.08);
+    border: 1px solid rgba(13,59,102,0.2);
+    border-radius: 14px;
+    padding: 1.2rem;
+    font-family: 'Swanky and Moo Moo', cursive;
+    line-height: 1.6;
+}
+
+.version-notes h3 {
+    margin-top: 0;
+    color: var(--navy);
+    font-size: 1.4rem;
+}
+
+.version-notes ul {
+    padding-left: 1.2rem;
+}
+
+/* CONTACT */
+.contact {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+/* MOBILE */
+@media (max-width: 900px) {
     .layout {
-        width: 95%;
-        margin: 0 auto;
-        display: flex;
-        gap: 1.5rem;
-        align-items: stretch;
+        flex-direction: column;
     }
 
-    .dashboard-frame {
-        flex: 0 0 70%;
-        background: var(--glass);
-        border: 1px solid var(--glass-border);
-        backdrop-filter: blur(14px);
-        padding: 1rem;
-        border-radius: 14px;
-        min-width: 0;
+    .dashboard-frame,
+    .version-notes {
+        flex: 1 1 100%;
     }
 
     iframe {
-        width: 100%;
-        height: 80vh;
-        border: none;
-        border-radius: 12px;
+        height: 60vh;
     }
-
-    .version-notes {
-        flex: 0 0 30%;
-        background: rgba(13,59,102,0.08);
-        border: 1px solid rgba(13,59,102,0.2);
-        border-radius: 14px;
-        padding: 1.2rem;
-        font-size: 0.95rem;
-        font-family: 'Swanky and Moo Moo', cursive;
-        line-height: 1.5;
-        overflow-wrap: break-word;
-    }
-
-    .version-notes h3 {
-        margin-top: 0;
-        color: var(--navy);
-        font-size: 1.3rem;
-    }
-
-    .version-notes ul {
-        padding-left: 1.2rem;
-    }
-
-
-    .contact {
-        text-align: center;
-        margin-top: 1.5rem;
-        font-size: 0.95rem;
-    }
-
-    @media (max-width: 900px) {
-        .layout { flex-direction: column; }
-        .dashboard-frame, .version-notes { flex: 1 1 100%; }
-        iframe { height: 60vh; }
-    }
-
+}
 </style>
 </head>
 
@@ -151,25 +156,32 @@
 <div class="content">
     <div class="layout">
 
+        <!-- ✅ THIS IS THE CRITICAL FIX -->
         <div class="dashboard-frame">
-            https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9
+            <iframe
+                title="Parish Overview Dashboard"
+                src="https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9"
+                allowfullscreen="true">
+            </iframe>
         </div>
 
+        <!-- VERSION NOTES -->
         <div class="version-notes">
             <h3>Version Notes</h3>
 
+            <p><strong>DELAYED - v3.0</strong> – Iterative development including new datasets.</p>
 
-            <p><strong>DELAYED - v3.0</strong> – Iterative development including new datasets.</p>
             <ul>
-                <li>IMD Amended which now shows different cirterion than it had in version 2.</li>
-                <li>Funerals currently not in the new version due to data connection problems.</li>
-                <li>Updated location data due to parish reorganisations.</li>
-                <li>Updated FWO and LICF figures to accurately show impacts of reorganisations.</li>
+                <li>IMD amended which now shows different criteria than version 2</li>
+                <li>Funerals currently not included due to data connection issues</li>
+                <li>Updated location data following parish reorganisations</li>
+                <li>Updated FWO and LICF figures to reflect restructuring impacts</li>
             </ul>
 
             <p><strong>Future updates</strong></p>
+
             <ul>
-                <li>For any suggestions or requests on future updates, please email:</li>
+                <li>For suggestions or requests:</li>
                 <li><a href="mailto:insights@yorkdiocese.org">insights@yorkdiocese.org</a></li>
             </ul>
         </div>
@@ -183,3 +195,5 @@
 </div>
 
 </body>
+</html>
+``
