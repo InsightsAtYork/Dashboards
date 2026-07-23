@@ -1,231 +1,786 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<title>Diocesan Dashboards – Parish Overview (Public)</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
 
-<!-- Swanky & Moo Moo font -->
-<link href="httpsis.com/css2?family=Swanky+and+Moo+Moo&display=swap" rel="stylesheet">
+    <title>Diocesan Dashboards – Parish Overview</title>
 
-<style>
-:root {
-    --red: #b31f29;
-    --yellow: #f8ce3b;
-    --navy: #0d3b66;
-    --bg1: #ffffff;
-    --glass: rgba(255,255,255,0.45);
-    --glass-border: rgba(255,255,255,0.25);
-}
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-body {
-    margin: 0;
-    font-family: Georgia, serif;
-    background: var(--bg1);
-    color: #222;
-}
+    <!-- Cabin font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
 
-/* WAVES */
-.waves {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100vh;
-    z-index: -2;
-    overflow: hidden;
-}
+    <style>
+        :root {
+            --red: #b31f29;
+            --yellow: #f8ce3b;
+            --navy: #0d3b66;
 
-.wave {
-    position: absolute;
-    width: 200%;
-    height: 45%;
-    left: -50%;
-    opacity: 0.35;
-    border-radius: 45%;
-    animation: drift 18s infinite ease-in-out alternate;
-}
+            --page-background: #ffffff;
+            --text: #222222;
+            --muted-text: #4b5563;
 
-.wave:nth-child(1) {
-    top: -10%;
-    background: var(--navy);
-}
+            --panel-background: rgba(255, 255, 255, 0.88);
+            --panel-border: rgba(13, 59, 102, 0.22);
 
-.wave:nth-child(2) {
-    top: 20%;
-    background: var(--red);
-}
+            --notes-background: #f1f5f9;
+            --notes-border: #b7c4d1;
 
-.wave:nth-child(3) {
-    top: 50%;
-    background: var(--yellow);
-    opacity: 0.25;
-}
+            --announcement-background: #fff8dc;
+            --announcement-border: #d8b52f;
 
-@keyframes drift {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(25%) rotate(6deg);
-    }
-}
+            --focus-colour: #000000;
 
-/* HEADER */
-header {
-    text-align: center;
-    padding: 3rem 1rem 2rem;
-    color: white;
-    background: linear-gradient(135deg, var(--navy), var(--red));
-}
+            --content-width: 1600px;
+            --border-radius: 14px;
+        }
 
-header h1 {
-    margin: 0;
-    font-size: 2.4rem;
-}
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
 
-header p {
-    margin: 0.5rem 0 0;
-}
+        html {
+            scroll-behavior: smooth;
+        }
 
-/* ANNOUNCEMENT BANNER */
-.announcement-banner {
-    background: linear-gradient(135deg, #f8ce3b, #f5d96b);
-    color: var(--navy);
-    text-align: center;
-    padding: 1rem 1.5rem;
-    font-family: 'Swanky and Moo Moo', cursive;
-    font-size: 1.9rem;
-    line-height: 1.4;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    border-top: 3px solid var(--red);
-    border-bottom: 3px solid var(--red);
-}
+        body {
+            margin: 0;
+            min-height: 100vh;
 
-.announcement-banner strong {
-    display: block;
-    font-size: 2.2rem;
-    margin-bottom: 0.2rem;
-}
+            font-family: "Cabin", Arial, sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
 
-/* CONTENT */
-.content {
-    padding: 2rem 1rem 4rem;
-}
+            background: var(--page-background);
+            color: var(--text);
+        }
 
-.layout {
-    width: 95%;
-    margin: auto;
-    display: flex;
-    gap: 1.5rem;
-}
+        a {
+            color: var(--navy);
+            text-decoration-thickness: 0.12em;
+            text-underline-offset: 0.18em;
+        }
 
-/* DASHBOARD */
-.dashboard-frame {
-    flex: 0 0 70%;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    backdrop-filter: blur(12px);
-    border-radius: 14px;
-    padding: 1rem;
-    min-width: 0;
-}
+        a:hover {
+            text-decoration-thickness: 0.18em;
+        }
 
-iframe {
-    width: 100%;
-    height: 80vh;
-    border: none;
-    border-radius: 12px;
-}
+        a:focus-visible,
+        button:focus-visible,
+        iframe:focus-visible {
+            outline: 3px solid var(--focus-colour);
+            outline-offset: 4px;
+        }
 
-/* VERSION NOTES */
-.version-notes {
-    flex: 0 0 30%;
-    background: rgba(13,59,102,0.14);
-    border: 1px solid rgba(13,59,102,0.30);
-    border-radius: 14px;
-    padding: 1.2rem;
-    font-family: 'Swanky and Moo Moo', cursive;
-    line-height: 1.6;
-}
+        /* ACCESSIBILITY */
 
-.version-notes h3 {
-    margin-top: 0;
-    color: var(--navy);
-    font-size: 1.4rem;
-}
+        .skip-link {
+            position: fixed;
+            top: -6rem;
+            left: 1rem;
+            z-index: 1000;
 
-.version-notes ul {
-    padding-left: 1.2rem;
-}
+            padding: 0.75rem 1rem;
 
-/* CONTACT */
-.contact {
-    text-align: center;
-    margin-top: 1.5rem;
-}
+            background: #ffffff;
+            color: var(--navy);
 
-/* MOBILE */
-@media (max-width: 900px) {
+            border: 2px solid var(--navy);
+            border-radius: 6px;
 
-    .layout {
-        flex-direction: column;
-    }
+            font-weight: 700;
+        }
 
-    .dashboard-frame,
-    .version-notes {
-        flex: 1 1 100%;
-    }
+        .skip-link:focus {
+            top: 1rem;
+        }
 
-    iframe {
-        height: 60vh;
-    }
+        .visually-hidden {
+            position: absolute !important;
 
-    .announcement-banner {
-        font-size: 1.4rem;
-    }
+            width: 1px !important;
+            height: 1px !important;
 
-    .announcement-banner strong {
-        font-size: 1.7rem;
-    }
-}
-</style>
+            padding: 0 !important;
+            margin: -1px !important;
+
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+
+            border: 0 !important;
+        }
+
+        /* BACKGROUND WAVES */
+
+        .waves {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .wave {
+            position: absolute;
+            left: -50%;
+
+            width: 200%;
+            height: 45%;
+
+            border-radius: 45%;
+            opacity: 0.28;
+        }
+
+        .wave:nth-child(1) {
+            top: -10%;
+            background: var(--navy);
+            transform: rotate(-2deg);
+        }
+
+        .wave:nth-child(2) {
+            top: 22%;
+            background: var(--red);
+            transform: rotate(3deg);
+        }
+
+        .wave:nth-child(3) {
+            top: 53%;
+            background: var(--yellow);
+            opacity: 0.2;
+            transform: rotate(-4deg);
+        }
+
+        /* HEADER */
+
+        .site-header {
+            padding: 3rem 1rem 2.25rem;
+
+            text-align: center;
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy) 0%,
+                    #174f7f 48%,
+                    var(--red) 100%
+                );
+        }
+
+        .site-header h1 {
+            margin: 0;
+
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .site-header p {
+            margin: 0.6rem 0 0;
+
+            font-size: clamp(1rem, 2vw, 1.15rem);
+            font-weight: 400;
+        }
+
+        /* ANNOUNCEMENT */
+
+        .announcement-wrapper {
+            padding: 1.5rem 1rem 0;
+        }
+
+        .announcement-banner {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 1rem;
+            align-items: start;
+
+            width: min(95%, var(--content-width));
+            margin-inline: auto;
+            padding: 1rem 1.25rem;
+
+            background: var(--announcement-background);
+            color: var(--text);
+
+            border: 1px solid var(--announcement-border);
+            border-left: 7px solid var(--yellow);
+            border-radius: 10px;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.09);
+        }
+
+        .announcement-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 2.5rem;
+            height: 2.5rem;
+
+            background: var(--navy);
+            color: #ffffff;
+
+            border-radius: 50%;
+
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .announcement-content h2 {
+            margin: 0 0 0.25rem;
+
+            color: var(--navy);
+
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .announcement-content p {
+            max-width: 90ch;
+            margin: 0;
+
+            line-height: 1.55;
+        }
+
+        /* MAIN CONTENT */
+
+        .content {
+            padding: 1.5rem 1rem 4rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns:
+                minmax(0, 2.25fr)
+                minmax(19rem, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+
+            width: min(95%, var(--content-width));
+            margin-inline: auto;
+        }
+
+        /* DASHBOARD */
+
+        .dashboard-frame {
+            min-width: 0;
+            padding: 1rem;
+
+            background: var(--panel-background);
+
+            border: 1px solid var(--panel-border);
+            border-radius: var(--border-radius);
+
+            box-shadow: 0 4px 18px rgba(13, 59, 102, 0.09);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .dashboard-frame iframe {
+            display: block;
+
+            width: 100%;
+            height: 80vh;
+            min-height: 600px;
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #ffffff;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 1rem;
+        }
+
+        .dashboard-actions p {
+            margin: 0;
+
+            color: var(--muted-text);
+            font-size: 0.95rem;
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 44px;
+            padding: 0.65rem 1rem;
+
+            background: var(--navy);
+            color: #ffffff;
+
+            border: 2px solid var(--navy);
+            border-radius: 7px;
+
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .dashboard-link:hover {
+            background: #ffffff;
+            color: var(--navy);
+        }
+
+        /* VERSION NOTES */
+
+        .version-notes {
+            padding: 1.4rem;
+
+            background: var(--notes-background);
+            color: var(--text);
+
+            border: 1px solid var(--notes-border);
+            border-top: 6px solid var(--navy);
+            border-radius: 10px;
+
+            box-shadow: 0 4px 16px rgba(13, 59, 102, 0.08);
+        }
+
+        .version-notes h2 {
+            margin: 0 0 1.1rem;
+
+            color: var(--navy);
+
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .version-entry + .version-entry {
+            margin-top: 1.4rem;
+            padding-top: 1.4rem;
+
+            border-top: 1px solid #cbd5e1;
+        }
+
+        .version-heading {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+
+            margin: 0 0 0.5rem;
+        }
+
+        .version-heading h3 {
+            margin: 0;
+
+            color: var(--navy);
+
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .version-status {
+            display: inline-flex;
+            align-items: center;
+
+            min-height: 1.75rem;
+            padding: 0.2rem 0.55rem;
+
+            border-radius: 999px;
+
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .version-status.delayed {
+            background: #fde8e8;
+            color: #8a1420;
+
+            border: 1px solid #d99ba2;
+        }
+
+        .version-status.current {
+            background: #e4f0fb;
+            color: var(--navy);
+
+            border: 1px solid #9bbbd7;
+        }
+
+        .version-status.previous {
+            background: #e7ecef;
+            color: #374151;
+
+            border: 1px solid #b6c0ca;
+        }
+
+        .version-entry p {
+            margin: 0 0 0.75rem;
+        }
+
+        .version-entry ul {
+            margin: 0.65rem 0 0;
+            padding-left: 1.25rem;
+        }
+
+        .version-entry li {
+            margin-bottom: 0.55rem;
+        }
+
+        .version-entry li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            width: min(95%, var(--content-width));
+            margin: 1.75rem auto 0;
+            padding: 1rem;
+
+            text-align: center;
+            color: var(--muted-text);
+
+            background: rgba(255, 255, 255, 0.78);
+
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+        }
+
+        .contact p {
+            margin: 0;
+        }
+
+        /* TABLET AND MOBILE */
+
+        @media (max-width: 1000px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .version-notes {
+                width: 100%;
+            }
+
+            .dashboard-frame iframe {
+                height: 68vh;
+                min-height: 520px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 2.25rem 1rem 1.75rem;
+            }
+
+            .announcement-wrapper {
+                padding-top: 1rem;
+            }
+
+            .announcement-banner {
+                grid-template-columns: 1fr;
+                gap: 0.65rem;
+
+                padding: 1rem;
+            }
+
+            .announcement-icon {
+                width: 2.15rem;
+                height: 2.15rem;
+
+                font-size: 1rem;
+            }
+
+            .content {
+                padding-top: 1rem;
+            }
+
+            .dashboard-frame {
+                padding: 0.65rem;
+            }
+
+            .dashboard-frame iframe {
+                height: 65vh;
+                min-height: 450px;
+            }
+
+            .dashboard-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .dashboard-link {
+                width: 100%;
+            }
+
+            .version-notes {
+                padding: 1.15rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
-<div class="waves">
-    <div class="wave"></div>
-    <div class="wave"></div>
-    <div class="wave"></div>
-</div>
+    <a class="skip-link" href="#dashboard">
+        Skip to parish dashboard
+    </a>
 
-<header>
-    <h1>Diocesan Dashboards</h1>
-    <p>Parish Overview – Public Access</p>
-</header>
+    <div class="waves" aria-hidden="true">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
 
-<div class="announcement-banner">
-    <strong>V3.0 Deployment Delayed</strong>
-    Due to available capacity and the complexity of the underlying architecture,
-    deployment of Version 3.0 has been postponed whilst development continues.
-</div>
+    <header class="site-header">
+        <h1>Diocesan Dashboards</h1>
+        <p>Parish Overview – Public Access</p>
+    </header>
 
-<div class="content">
-    <div class="layout">
+    <div class="announcement-wrapper">
+        <section
+            class="announcement-banner"
+            aria-labelledby="announcement-title"
+        >
+            <div class="announcement-icon" aria-hidden="true">
+                !
+            </div>
 
-        <div class="dashboard-frame">
-            <iframe
-                title="Parish Overview Dashboard"
-                src="https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9"
-                allowfullscreen="true">
-            </iframe>
+            <div class="announcement-content">
+                <h2 id="announcement-title">
+                    Version 3.0 deployment delayed
+                </h2>
+
+                <p>
+                    Version 3.0 will be released later than originally planned
+                    while work continues on the dashboard’s new datasets,
+                    integrations and technical architecture. The current
+                    dashboard remains available in the meantime.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <main class="content">
+        <div class="layout">
+
+            <section
+                class="dashboard-frame"
+                id="dashboard"
+                aria-labelledby="dashboard-title"
+            >
+                <h2
+                    id="dashboard-title"
+                    class="visually-hidden"
+                >
+                    Parish overview dashboard
+                </h2>
+
+                <p
+                    id="dashboard-help"
+                    class="visually-hidden"
+                >
+                    This is an interactive Power BI report. Use the Tab key to
+                    move through available report controls.
+                </p>
+
+                <iframe
+                    title="Interactive Power BI parish overview dashboard"
+                    aria-describedby="dashboard-help"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9"
+                    loading="lazy"
+                    allowfullscreen
+                ></iframe>
+
+                <div class="dashboard-actions">
+                    <p>
+                        The dashboard may take a few moments to load.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open dashboard in a new window
+                    </a>
+                </div>
+            </section>
+
+            <aside
+                class="version-notes"
+                aria-labelledby="version-notes-title"
+            >
+                <h2 id="version-notes-title">
+                    Version Notes
+                </h2>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Version 3.0</h3>
+
+                        <span class="version-status delayed">
+                            Delayed
+                        </span>
+                    </div>
+
+                    <p>
+                        Deployment has been delayed while development continues
+                        on additional datasets, integrations and architectural
+                        improvements.
+                    </p>
+
+                    <ul>
+                        <li>
+                            Expansion of the underlying dashboard data model.
+                        </li>
+
+                        <li>
+                            Integration of additional diocesan and parish-level
+                            datasets.
+                        </li>
+
+                        <li>
+                            Improvements to data validation and refresh
+                            processes.
+                        </li>
+
+                        <li>
+                            Revised navigation and report-page structure.
+                        </li>
+
+                        <li>
+                            Further accessibility and usability testing before
+                            public deployment.
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Version 2.2</h3>
+
+                        <span class="version-status current">
+                            Current
+                        </span>
+                    </div>
+
+                    <p>
+                        The currently available public dashboard includes
+                        refreshed parish information and improvements to report
+                        clarity.
+                    </p>
+
+                    <ul>
+                        <li>
+                            Updated parish-level data and summary measures.
+                        </li>
+
+                        <li>
+                            Improved visual labels and explanatory text.
+                        </li>
+
+                        <li>
+                            Revised filtering and parish selection controls.
+                        </li>
+
+                        <li>
+                            General performance and data-quality improvements.
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Version 2.1</h3>
+
+                        <span class="version-status previous">
+                            Previous
+                        </span>
+                    </div>
+
+                    <ul>
+                        <li>
+                            Added further parish comparison information.
+                        </li>
+
+                        <li>
+                            Corrected identified mapping and classification
+                            issues.
+                        </li>
+
+                        <li>
+                            Improved consistency across dashboard pages.
+                        </li>
+                    </ul>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Version 2.0</h3>
+
+                        <span class="version-status previous">
+                            Previous
+                        </span>
+                    </div>
+
+                    <ul>
+                        <li>
+                            Introduced the revised public parish overview.
+                        </li>
+
+                        <li>
+                            Combined key parish information into a single
+                            dashboard.
+                        </li>
+
+                        <li>
+                            Added interactive filtering and navigation.
+                        </li>
+                    </ul>
+                </section>
+            </aside>
+
         </div>
 
-        <div class="version-notes">
-            <h3>Version Notes</h3>
-
+        <section
+            class="contact"
+            aria-label="Dashboard support"
+        >
             <p>
-                <strong>DELAYED - v3.0</strong> –
-                Deployment delayed whilst additional datasets, integrations and
-                architectural enhancements are 
+                For questions about the dashboard or its data, please contact
+                the diocesan data team.
+            </p>
+        </section>
+    </main>
+
+</body>
+</html>
