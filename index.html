@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- Swanky & Moo Moo font -->
-<link href="httpsd+Moo+Moo&display=swap" rel="stylesheet">
+<link href="httpsis.com/css2?family=Swanky+and+Moo+Moo&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -63,8 +63,12 @@ body {
 }
 
 @keyframes drift {
-    from { transform: translateX(0); }
-    to { transform: translateX(25%) rotate(6deg); }
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(25%) rotate(6deg);
+    }
 }
 
 /* HEADER */
@@ -84,19 +88,27 @@ header p {
     margin: 0.5rem 0 0;
 }
 
-/* DEPLOYMENT ANNOUNCEMENT */
+/* ANNOUNCEMENT BANNER */
 .announcement-banner {
-    background: linear-gradient(135deg, var(--navy), var(--red));
-    color: white;
+    background: linear-gradient(135deg, #f8ce3b, #f5d96b);
+    color: var(--navy);
     text-align: center;
     padding: 1rem 1.5rem;
-    font-family: Georgia, serif;
-    font-size: 1rem;
-    line-height: 1.5;
+    font-family: 'Swanky and Moo Moo', cursive;
+    font-size: 1.9rem;
+    line-height: 1.4;
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    border-top: 3px solid var(--red);
+    border-bottom: 3px solid var(--red);
 }
 
-/* LAYOUT */
+.announcement-banner strong {
+    display: block;
+    font-size: 2.2rem;
+    margin-bottom: 0.2rem;
+}
+
+/* CONTENT */
 .content {
     padding: 2rem 1rem 4rem;
 }
@@ -155,6 +167,7 @@ iframe {
 
 /* MOBILE */
 @media (max-width: 900px) {
+
     .layout {
         flex-direction: column;
     }
@@ -166,6 +179,14 @@ iframe {
 
     iframe {
         height: 60vh;
+    }
+
+    .announcement-banner {
+        font-size: 1.4rem;
+    }
+
+    .announcement-banner strong {
+        font-size: 1.7rem;
     }
 }
 </style>
@@ -185,8 +206,9 @@ iframe {
 </header>
 
 <div class="announcement-banner">
-    <strong>V3.0 Deployment Update:</strong>
-    Deployment of Version 3.0 has been delayed due to capacity constraints and the architectural complexity associated with integrating additional datasets and functionality. Development remains ongoing and further updates will be provided as milestones are achieved.
+    <strong>V3.0 Deployment Delayed</strong>
+    Due to available capacity and the complexity of the underlying architecture,
+    deployment of Version 3.0 has been postponed whilst development continues.
 </div>
 
 <div class="content">
@@ -205,18 +227,5 @@ iframe {
 
             <p>
                 <strong>DELAYED - v3.0</strong> –
-                Deployment delayed while additional datasets, integrations and architectural enhancements are completed.
-            </p>
-
-            <ul>
-                <li>IMD amended which now shows different criteria than version 2</li>
-                <li>Funerals currently not included due to data connection issues</li>
-                <li>Updated location data following parish reorganisations</li>
-                <li>Updated FWO and LICF figures to reflect restructuring impacts</li>
-            </ul>
-
-            <p><strong>Future updates</strong></p>
-
-            <ul>
-                <li>
-                 
+                Deployment delayed whilst additional datasets, integrations and
+                architectural enhancements are 
