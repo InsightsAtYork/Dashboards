@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
 <!-- Swanky & Moo Moo font -->
-<link href="https://fonts.googleapis.com/css2?family=Swanky+and+Moo+Moo&display=swap" rel="stylesheet">
+<link href="httpsd+Moo+Moo&display=swap" rel="stylesheet">
 
 <style>
 :root {
@@ -28,7 +28,8 @@ body {
 /* WAVES */
 .waves {
     position: fixed;
-    top: 0; left: 0;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100vh;
     z-index: -2;
@@ -45,9 +46,21 @@ body {
     animation: drift 18s infinite ease-in-out alternate;
 }
 
-.wave:nth-child(1) { top: -10%; background: var(--navy); }
-.wave:nth-child(2) { top: 20%; background: var(--red); }
-.wave:nth-child(3) { top: 50%; background: var(--yellow); opacity: 0.25; }
+.wave:nth-child(1) {
+    top: -10%;
+    background: var(--navy);
+}
+
+.wave:nth-child(2) {
+    top: 20%;
+    background: var(--red);
+}
+
+.wave:nth-child(3) {
+    top: 50%;
+    background: var(--yellow);
+    opacity: 0.25;
+}
 
 @keyframes drift {
     from { transform: translateX(0); }
@@ -62,8 +75,26 @@ header {
     background: linear-gradient(135deg, var(--navy), var(--red));
 }
 
-header h1 { margin: 0; font-size: 2.4rem; }
-header p { margin: 0.5rem 0 0; }
+header h1 {
+    margin: 0;
+    font-size: 2.4rem;
+}
+
+header p {
+    margin: 0.5rem 0 0;
+}
+
+/* DEPLOYMENT ANNOUNCEMENT */
+.announcement-banner {
+    background: linear-gradient(135deg, var(--navy), var(--red));
+    color: white;
+    text-align: center;
+    padding: 1rem 1.5rem;
+    font-family: Georgia, serif;
+    font-size: 1rem;
+    line-height: 1.5;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 
 /* LAYOUT */
 .content {
@@ -98,8 +129,8 @@ iframe {
 /* VERSION NOTES */
 .version-notes {
     flex: 0 0 30%;
-    background: rgba(13,59,102,0.08);
-    border: 1px solid rgba(13,59,102,0.2);
+    background: rgba(13,59,102,0.14);
+    border: 1px solid rgba(13,59,102,0.30);
     border-radius: 14px;
     padding: 1.2rem;
     font-family: 'Swanky and Moo Moo', cursive;
@@ -153,10 +184,14 @@ iframe {
     <p>Parish Overview – Public Access</p>
 </header>
 
+<div class="announcement-banner">
+    <strong>V3.0 Deployment Update:</strong>
+    Deployment of Version 3.0 has been delayed due to capacity constraints and the architectural complexity associated with integrating additional datasets and functionality. Development remains ongoing and further updates will be provided as milestones are achieved.
+</div>
+
 <div class="content">
     <div class="layout">
 
-        <!-- ✅ THIS IS THE CRITICAL FIX -->
         <div class="dashboard-frame">
             <iframe
                 title="Parish Overview Dashboard"
@@ -165,11 +200,13 @@ iframe {
             </iframe>
         </div>
 
-        <!-- VERSION NOTES -->
         <div class="version-notes">
             <h3>Version Notes</h3>
 
-            <p><strong>DELAYED - v3.0</strong> – Iterative development including new datasets.</p>
+            <p>
+                <strong>DELAYED - v3.0</strong> –
+                Deployment delayed while additional datasets, integrations and architectural enhancements are completed.
+            </p>
 
             <ul>
                 <li>IMD amended which now shows different criteria than version 2</li>
@@ -181,18 +218,5 @@ iframe {
             <p><strong>Future updates</strong></p>
 
             <ul>
-                <li>For suggestions or requests: <a href="mailto:insights@yorkdiocese.org">insights@yorkdiocese.org</a></li>
-            </ul>
-        </div>
-
-    </div>
-
-    <div class="contact">
-        Questions or need clarification?
-        <a href="mailto:insights@yorkdiocese.org">insights@yorkdiocese.org</a>
-    </div>
-</div>
-
-</body>
-</html>
-``
+                <li>
+                 
