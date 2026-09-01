@@ -57,11 +57,18 @@
             scroll-behavior: smooth;
         }
 
+        html,
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font-family: "Cabin", Arial, sans-serif;
+        }
+
         body {
             margin: 0;
             min-height: 100vh;
-
-            font-family: "Cabin", Arial, sans-serif;
             font-size: 1rem;
             line-height: 1.5;
 
@@ -347,6 +354,11 @@
             color: var(--navy);
         }
 
+        .version-entry .dashboard-link {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
         /* VERSION NOTES */
 
         .version-notes {
@@ -570,16 +582,16 @@
             aria-labelledby="announcement-title"
         >
             <div class="announcement-icon" aria-hidden="true">
-                !
+                ✓
             </div>
 
             <div class="announcement-content">
                 <h2 id="announcement-title">
-                    Version 3.0 deployment delayed
+                    Version 3 Now Available
                 </h2>
 
                 <p>
-                    Version 3.0 will be released later than originally planned while work continues on the dashboard’s new datasets, integrations and technical architecture. The current dashboard remains available in the meantime. This is currently expected to go live in August, 2026.
+                    Version 3 introduces improved accessibility, updated IMD and LICF datasets, cross-page filtering, simplified navigation, and enhancements to the underlying data structures that support improved reporting reliability.
                 </p>
             </div>
         </section>
@@ -634,151 +646,105 @@
 
             <aside
                 class="version-notes"
-                aria-labelledby="version-notes-title"
+                aria-labelledby="quick-links-title"
             >
-                <h2 id="version-notes-title">
-                    Version Notes
+                <h2 id="quick-links-title">
+                    Quick Links
                 </h2>
 
                 <section class="version-entry">
                     <div class="version-heading">
-                        <h3>Version 3.0</h3>
-
-                        <span class="version-status delayed">
-                            Delayed
-                        </span>
+                        <h3>Community Insights Map</h3>
                     </div>
 
                     <p>
-                        Deployment has been delayed while development continues
-                        on additional datasets, integrations and architectural
-                        improvements.
+                        Explore community and demographic information using a simple location search experience.
                     </p>
 
-                    <ul>
-                        <li>
-                            Expansion of the underlying dashboard data model, including updating locations after restructuring.
-                        </li>
-
-                        <li>
-                            Integration of additional or updated diocesan and parish-level
-                            datasets.
-                        </li>
-
-                        <li>
-                            Improvements to data validation and refresh
-                            processes.
-                        </li>
-
-                        <li>
-                            Revised navigation and report-page structure.
-                        </li>
-
-                        <li>
-                            Further accessibility and usability testing before
-                            public deployment.
-                        </li>
-                    </ul>
+                    <a
+                        class="dashboard-link"
+                        href="https://experience.arcgis.com/experience/5ff5e9d07eab4ce28543fca4da46044d"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Map
+                    </a>
                 </section>
 
                 <section class="version-entry">
                     <div class="version-heading">
-                        <h3>Version 2.2</h3>
-
-                        <span class="version-status current">
-                            Current
-                        </span>
+                        <h3>Advanced Parish Mapping</h3>
                     </div>
 
                     <p>
-                        The currently available public dashboard includes
-                        refreshed parish information and improvements to report
-                        clarity.
+                        View parish boundaries and detailed geographic information using the Church of England mapping platform.
                     </p>
 
-                    <ul>
-                        <li>
-                            Updated parish-level data and summary measures.
-                        </li>
-
-                        <li>
-                            Improved visual labels and explanatory text.
-                        </li>
-
-                        <li>
-                            Revised filtering and parish selection controls.
-                        </li>
-
-                        <li>
-                            General performance and data-quality improvements.
-                        </li>
-                    </ul>
+                    <a
+                        class="dashboard-link"
+                        href="https://c-of-e.maps.arcgis.com/apps/instant/basic/index.html?appid=123773d4cbd44be6ba5c546404989078"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Map
+                    </a>
                 </section>
 
                 <section class="version-entry">
                     <div class="version-heading">
-                        <h3>Version 2.1</h3>
-
-                        <span class="version-status previous">
-                            Previous
-                        </span>
+                        <h3>Parish Returns</h3>
                     </div>
 
-                    <ul>
-                        <li>
-                            Added further parish comparison information.
-                        </li>
+                    <p>
+                        Access the Church of England Parish Returns system.
+                    </p>
 
-                        <li>
-                            Corrected identified mapping and classification
-                            issues.
-                        </li>
-
-                        <li>
-                            Improved consistency across dashboard pages.
-                        </li>
-                    </ul>
+                    <a
+                        class="dashboard-link"
+                        href="https://parishreturns.churchofengland.org/home/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Parish Returns
+                    </a>
                 </section>
 
                 <section class="version-entry">
                     <div class="version-heading">
-                        <h3>Version 2.0</h3>
+                        <h3>Contact the Data Team</h3>
+                    </div>
 
-                        <span class="version-status previous">
-                            Previous
-                        </span>
+                    <p>
+                        Questions, feedback, corrections or suggestions for future improvements can be sent directly to the diocesan data team.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="mailto:insights@yorkdiocese.org"
+                    >
+                        Email Team
+                    </a>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>What's New in Version 3</h3>
                     </div>
 
                     <ul>
-                        <li>
-                            Introduced the revised public parish overview.
-                        </li>
-
-                        <li>
-                            Combined key parish information into a single
-                            dashboard.
-                        </li>
-
-                        <li>
-                            Added interactive filtering and navigation.
-                        </li>
+                        <li>Accessibility improvements across the dashboard.</li>
+                        <li>New Indices of Multiple Deprivation (IMD) insights.</li>
+                        <li>Updated Lowest Income Communities Fund (LICF) data.</li>
+                        <li>Filters now remain applied when moving between dashboard pages.</li>
+                        <li>Simplified navigation and removal of unnecessary clutter.</li>
+                        <li>Improvements to underlying data structures and validation processes to support reporting reliability.</li>
                     </ul>
                 </section>
             </aside>
 
         </div>
 
-        <section
-            class="contact"
-            aria-label="Dashboard support"
-        >
-            <p>
-                For questions about the dashboard or its data, please contact
-                <a href="mailto:insights@yorkdiocese.org">
-                    the diocesan data team.
-                </a>
-            </p>
-        </section>
+
     </main>
 
 </body>
