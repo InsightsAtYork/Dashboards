@@ -1,6 +1,749 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Diocesan Dashboards – Parish Overview</title>
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <!-- Cabin font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap"
+        rel="stylesheet"
+    >
+
+    <style>
+        :root {
+            --red: #b31f29;
+            --yellow: #f8ce3b;
+            --navy: #0d3b66;
+
+            --page-background: #ffffff;
+            --text: #222222;
+            --muted-text: #4b5563;
+
+            --panel-background: rgba(255, 255, 255, 0.88);
+            --panel-border: rgba(13, 59, 102, 0.22);
+
+            --notes-background: #f1f5f9;
+            --notes-border: #b7c4d1;
+
+            --announcement-background: #fff8dc;
+            --announcement-border: #d8b52f;
+
+            --focus-colour: #000000;
+
+            --content-width: 1600px;
+            --border-radius: 14px;
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        html,
+        body,
+        button,
+        input,
+        select,
+        textarea {
+            font-family: "Cabin", Arial, sans-serif;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-size: 1rem;
+            line-height: 1.5;
+
+            background: var(--page-background);
+            color: var(--text);
+        }
+
+        a {
+            color: var(--navy);
+            text-decoration-thickness: 0.12em;
+            text-underline-offset: 0.18em;
+        }
+
+        a:hover {
+            text-decoration-thickness: 0.18em;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        iframe:focus-visible {
+            outline: 3px solid var(--focus-colour);
+            outline-offset: 4px;
+        }
+
+        /* ACCESSIBILITY */
+
+        .skip-link {
+            position: fixed;
+            top: -6rem;
+            left: 1rem;
+            z-index: 1000;
+
+            padding: 0.75rem 1rem;
+
+            background: #ffffff;
+            color: var(--navy);
+
+            border: 2px solid var(--navy);
+            border-radius: 6px;
+
+            font-weight: 700;
+        }
+
+        .skip-link:focus {
+            top: 1rem;
+        }
+
+        .visually-hidden {
+            position: absolute !important;
+
+            width: 1px !important;
+            height: 1px !important;
+
+            padding: 0 !important;
+            margin: -1px !important;
+
+            overflow: hidden !important;
+            clip: rect(0, 0, 0, 0) !important;
+            white-space: nowrap !important;
+
+            border: 0 !important;
+        }
+
+        /* BACKGROUND WAVES */
+
+        .waves {
+            position: fixed;
+            inset: 0;
+            z-index: -2;
+
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .wave {
+            position: absolute;
+            left: -50%;
+
+            width: 200%;
+            height: 45%;
+
+            border-radius: 45%;
+            opacity: 0.28;
+        }
+
+        .wave:nth-child(1) {
+            top: -10%;
+            background: var(--navy);
+            transform: rotate(-2deg);
+        }
+
+        .wave:nth-child(2) {
+            top: 22%;
+            background: var(--red);
+            transform: rotate(3deg);
+        }
+
+        .wave:nth-child(3) {
+            top: 53%;
+            background: var(--yellow);
+            opacity: 0.2;
+            transform: rotate(-4deg);
+        }
+
+        /* HEADER */
+
+        .site-header {
+            padding: 3rem 1rem 2.25rem;
+
+            text-align: center;
+            color: #ffffff;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--navy) 0%,
+                    #174f7f 48%,
+                    var(--red) 100%
+                );
+        }
+
+        .site-header h1 {
+            margin: 0;
+
+            font-size: clamp(2rem, 4vw, 2.75rem);
+            font-weight: 700;
+            line-height: 1.15;
+        }
+
+        .site-header p {
+            margin: 0.6rem 0 0;
+
+            font-size: clamp(1.35rem, 2.4vw, 1.7rem);
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        /* ANNOUNCEMENT */
+
+        .announcement-wrapper {
+            padding: 1.5rem 1rem 0;
+        }
+
+        .announcement-banner {
+            display: grid;
+            grid-template-columns: auto minmax(0, 1fr);
+            gap: 1rem;
+            align-items: start;
+
+            width: min(95%, var(--content-width));
+            margin-inline: auto;
+            padding: 1rem 1.25rem;
+
+            background: var(--announcement-background);
+            color: var(--text);
+
+            border: 1px solid var(--announcement-border);
+            border-left: 7px solid var(--yellow);
+            border-radius: 10px;
+
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.09);
+        }
+
+        .announcement-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            width: 2.5rem;
+            height: 2.5rem;
+
+            background: var(--navy);
+            color: #ffffff;
+
+            border-radius: 50%;
+
+            font-size: 1.25rem;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .announcement-content h2 {
+            margin: 0 0 0.25rem;
+
+            color: var(--navy);
+
+            font-size: 1.2rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
         .announcement-content p {
             max-width: 90ch;
             margin: 0;
 
             line-height: 1.55;
         }
+
+        /* MAIN CONTENT */
+
+        .content {
+            padding: 1.5rem 1rem 4rem;
+        }
+
+        .layout {
+            display: grid;
+            grid-template-columns:
+                minmax(0, 2.25fr)
+                minmax(19rem, 1fr);
+            gap: 1.5rem;
+            align-items: start;
+
+            width: min(95%, var(--content-width));
+            margin-inline: auto;
+        }
+
+        /* DASHBOARD */
+
+        .dashboard-frame {
+            min-width: 0;
+            padding: 1rem;
+
+            background: var(--panel-background);
+
+            border: 1px solid var(--panel-border);
+            border-radius: var(--border-radius);
+
+            box-shadow: 0 4px 18px rgba(13, 59, 102, 0.09);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .dashboard-frame iframe {
+            display: block;
+
+            width: 100%;
+            height: clamp(480px, 62vh, 620px);
+
+            border: 0;
+            border-radius: 10px;
+
+            background: #ffffff;
+        }
+
+        .dashboard-actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            align-items: center;
+            justify-content: space-between;
+
+            margin-top: 1rem;
+        }
+
+        .dashboard-actions p {
+            margin: 0;
+
+            color: var(--muted-text);
+            font-size: 0.95rem;
+        }
+
+        .dashboard-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+
+            min-height: 44px;
+            padding: 0.65rem 1rem;
+
+            background: var(--navy);
+            color: #ffffff;
+
+            border: 2px solid var(--navy);
+            border-radius: 7px;
+
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .dashboard-link:hover {
+            background: #ffffff;
+            color: var(--navy);
+        }
+
+        .version-entry .dashboard-link {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        /* VERSION NOTES */
+
+        .version-notes {
+            padding: 1.4rem;
+
+            background: var(--notes-background);
+            color: var(--text);
+
+            border: 1px solid var(--notes-border);
+            border-top: 6px solid var(--navy);
+            border-radius: 10px;
+
+            box-shadow: 0 4px 16px rgba(13, 59, 102, 0.08);
+        }
+
+        .version-notes h2 {
+            margin: 0 0 1.1rem;
+
+            color: var(--navy);
+
+            font-size: 1.5rem;
+            font-weight: 700;
+            line-height: 1.25;
+        }
+
+        .version-entry + .version-entry {
+            margin-top: 1.4rem;
+            padding-top: 1.4rem;
+
+            border-top: 1px solid #cbd5e1;
+        }
+
+        .version-heading {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            align-items: center;
+
+            margin: 0 0 0.5rem;
+        }
+
+        .version-heading h3 {
+            margin: 0;
+
+            color: var(--navy);
+
+            font-size: 1.1rem;
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .version-status {
+            display: inline-flex;
+            align-items: center;
+
+            min-height: 1.75rem;
+            padding: 0.2rem 0.55rem;
+
+            border-radius: 999px;
+
+            font-size: 0.78rem;
+            font-weight: 700;
+            line-height: 1;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+        }
+
+        .version-status.delayed {
+            background: #fde8e8;
+            color: #8a1420;
+
+            border: 1px solid #d99ba2;
+        }
+
+        .version-status.current {
+            background: #e4f0fb;
+            color: var(--navy);
+
+            border: 1px solid #9bbbd7;
+        }
+
+        .version-status.previous {
+            background: #e7ecef;
+            color: #374151;
+
+            border: 1px solid #b6c0ca;
+        }
+
+        .version-entry p {
+            margin: 0 0 0.75rem;
+        }
+
+        .version-entry ul {
+            margin: 0.65rem 0 0;
+            padding-left: 1.25rem;
+        }
+
+        .version-entry li {
+            margin-bottom: 0.55rem;
+        }
+
+        .version-entry li:last-child {
+            margin-bottom: 0;
+        }
+
+        /* CONTACT */
+
+        .contact {
+            width: min(95%, var(--content-width));
+            margin: 1.75rem auto 0;
+            padding: 1rem;
+
+            text-align: center;
+            color: var(--muted-text);
+
+            background: rgba(255, 255, 255, 0.78);
+
+            border: 1px solid var(--panel-border);
+            border-radius: 10px;
+        }
+
+        .contact p {
+            margin: 0;
+        }
+
+        /* TABLET AND MOBILE */
+
+        @media (max-width: 1000px) {
+            .layout {
+                grid-template-columns: 1fr;
+            }
+
+            .version-notes {
+                width: 100%;
+            }
+
+            .dashboard-frame iframe {
+                height: clamp(440px, 58vh, 560px);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .site-header {
+                padding: 2.25rem 1rem 1.75rem;
+            }
+
+            .announcement-wrapper {
+                padding-top: 1rem;
+            }
+
+            .announcement-banner {
+                grid-template-columns: 1fr;
+                gap: 0.65rem;
+
+                padding: 1rem;
+            }
+
+            .announcement-icon {
+                width: 2.15rem;
+                height: 2.15rem;
+
+                font-size: 1rem;
+            }
+
+            .content {
+                padding-top: 1rem;
+            }
+
+            .dashboard-frame {
+                padding: 0.65rem;
+            }
+
+            .dashboard-frame iframe {
+                height: clamp(380px, 55vh, 480px);
+            }
+
+            .dashboard-actions {
+                align-items: stretch;
+                flex-direction: column;
+            }
+
+            .dashboard-link {
+                width: 100%;
+            }
+
+            .version-notes {
+                padding: 1.15rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <a class="skip-link" href="#dashboard">
+        Skip to parish dashboard
+    </a>
+
+    <div class="waves" aria-hidden="true">
+        <div class="wave"></div>
+        <div class="wave"></div>
+        <div class="wave"></div>
+    </div>
+
+    <header class="site-header">
+        <h1>Diocesan Dashboards</h1>
+        <p>Parish Overview – Public Access</p>
+    </header>
+
+    <div class="announcement-wrapper">
+        <section
+            class="announcement-banner"
+            aria-labelledby="announcement-title"
+        >
+            <div class="announcement-icon" aria-hidden="true">
+                ✓
+            </div>
+
+            <div class="announcement-content">
+                <h2 id="announcement-title">
+                    Version 3 Now Available
+                </h2>
+
+                <p>
+                    Version 3 introduces improved accessibility, updated IMD and LICF datasets, cross-page filtering, simplified navigation, and enhancements to the underlying data structures that support reporting reliability. Please note that the Data Strategy Lead role will be vacant as of 23 October, so updates may be sporadic until a replacement is appointed. You can continue to contact the insights mailbox as usual, but the SLA may be longer than usual.
+                </p>
+            </div>
+        </section>
+    </div>
+
+    <main class="content">
+        <div class="layout">
+
+            <section
+                class="dashboard-frame"
+                id="dashboard"
+                aria-labelledby="dashboard-title"
+            >
+                <h2
+                    id="dashboard-title"
+                    class="visually-hidden"
+                >
+                    Parish overview dashboard
+                </h2>
+
+                <p
+                    id="dashboard-help"
+                    class="visually-hidden"
+                >
+                    This is an interactive Power BI report. Use the Tab key to
+                    move through available report controls.
+                </p>
+
+                <iframe
+                    title="Interactive Power BI parish overview dashboard"
+                    aria-describedby="dashboard-help"
+                    src="https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9"
+                    loading="lazy"
+                    allowfullscreen
+                ></iframe>
+
+                <div class="dashboard-actions">
+                    <p>
+                        The dashboard may take a few moments to load.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="https://app.powerbi.com/view?r=eyJrIjoiM2JjNmRjOTktNTkyNC00NTAzLWI5Y2QtODhkMmE4MTAyMGFkIiwidCI6IjMxYmFhNDYwLTE4MTEtNDUyMy04OWRiLTI1N2E2NjY1ODZlNiJ9"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open dashboard in a new window
+                    </a>
+                </div>
+            </section>
+
+            <aside
+                class="version-notes"
+                aria-labelledby="quick-links-title"
+            >
+                <h2 id="quick-links-title">
+                    Quick Links
+                </h2>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Community Insights Map</h3>
+                    </div>
+
+                    <p>
+                        Explore community and demographic information using a simple location search experience.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="https://experience.arcgis.com/experience/5ff5e9d07eab4ce28543fca4da46044d"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Map
+                    </a>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Advanced Parish Mapping</h3>
+                    </div>
+
+                    <p>
+                        View parish boundaries and detailed geographic information using the Church of England mapping platform.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="https://www.arcgis.com/apps/mapviewer/index.html?webmap=67bce0ed36dd4ee0af7a16bc079aa09a&extent=-0.4317,51.313,0.1986,51.5945"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Map
+                    </a>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Parish Returns</h3>
+                    </div>
+
+                    <p>
+                        Access the Church of England Parish Returns system.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="https://parishreturns.churchofengland.org/home/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        Open Parish Returns
+                    </a>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>Contact the Data Team</h3>
+                    </div>
+
+                    <p>
+                        Questions, feedback, corrections or suggestions for future improvements can be sent directly to the diocesan data team.
+                    </p>
+
+                    <a
+                        class="dashboard-link"
+                        href="mailto:insights@yorkdiocese.org"
+                    >
+                        Email Team
+                    </a>
+                </section>
+
+                <section class="version-entry">
+                    <div class="version-heading">
+                        <h3>What's New in Version 3</h3>
+                    </div>
+
+                    <ul>
+                        <li>Accessibility improvements across the dashboard.</li>
+                        <li>New Indices of Multiple Deprivation (IMD) insights.</li>
+                        <li>Updated Lowest Income Communities Fund (LICF) data.</li>
+                        <li>Filters now remain applied when moving between dashboard pages.</li>
+                        <li>Simplified navigation and removal of unnecessary clutter.</li>
+                        <li>Improvements to underlying data structures and validation processes to support reporting reliability.</li>
+                    </ul>
+                </section>
+            </aside>
+
+        </div>
+
+
+    </main>
+
+</body>
+</html>
